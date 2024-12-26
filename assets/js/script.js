@@ -69,6 +69,14 @@ const player = new Fighter({
             imageSrc: '/assets/img/samuraiMack/Attack1.png',
             maxFrames: 6
         }
+    },
+    attackBox: {
+        offset: {
+            x: 100,
+            y: 50
+        },
+        width: 158,
+        height: 50
     }
 });
 
@@ -114,6 +122,14 @@ const enemy = new Fighter({
             imageSrc: '/assets/img/kenji/Attack1.png',
             maxFrames: 4
         }
+    },
+    attackBox: {
+        offset: {
+            x: -172,
+            y: 50
+        },
+        width: 172,
+        height: 50
     }
 });
 
@@ -176,7 +192,7 @@ function animate() {
     else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
         enemy.velocity.x = 10;
         enemy.switchSprite('run');
-    }else {
+    } else {
         enemy.switchSprite('idle');
     }
     if (enemy.velocity.y < 0) {
@@ -188,20 +204,29 @@ function animate() {
     if (rectangularCollision({
         rectangle1: player,
         rectangle2: enemy
-    }) && player.isAttacking
+    }) && player.isAttacking && player.frameCurrent === 4
     ) {
         player.isAttacking = false;
         enemy.health -= 20;
         document.querySelector('#enemy-health').style.width = enemy.health + '%';
     }
+
+    if (player.isAttacking && player.frameCurrent === 4) {
+        player.isAttacking = false;
+    }
+
     if (rectangularCollision({
         rectangle1: enemy,
         rectangle2: player
-    }) && enemy.isAttacking
+    }) && enemy.isAttacking && enemy.frameCurrent === 2
     ) {
         enemy.isAttacking = false;
         player.health -= 20;
         document.querySelector('#player-health').style.width = player.health + '%';
+    }
+
+    if(enemy.isAttacking && enemy.frameCurrent ===2) {
+        enemy.isAttacking = false;
     }
 
     if (enemy.health <= 0 || player.health <= 0) {

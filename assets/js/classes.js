@@ -74,7 +74,8 @@ class Fighter extends Sprite {
         this.frameCurrent = 0;
         this.framesElapsed = 0;
         this.framesHold = 5;
-        this.sprites = sprites
+        this.sprites = sprites;
+        this.dead = false;
 
         for (const sprite in this.sprites) {
             sprites[sprite].image = new Image();
@@ -94,6 +95,7 @@ class Fighter extends Sprite {
 
     update() {
         this.draw();
+        if(!this.dead) this.animateFrame();
 
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
         this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
@@ -105,11 +107,30 @@ class Fighter extends Sprite {
             this.velocity.y = 0;
             this.position.y = 330;
         } else this.velocity.y += gravity;
+    }
 
-        this.animateFrame();
+    attack() {
+        this.switchSprite('attack1');
+        this.isAttacking = true;
+    }
+
+    takeHit() {
+        this.health -= 20;
+
+        if (this.health <= 0) {
+            this.switchSprite('death');
+        } else {
+            this.switchSprite('takeHit');
+        }
     }
 
     switchSprite(sprite) {
+        if (this.image === this.sprites.death.image) {
+            if (this.frameCurrent === this.sprites.death.maxFrames - 1)
+                this.dead = true
+            return
+        }
+
         if (this.image === this.sprites.attack1.image && this.frameCurrent < this.sprites.attack1.maxFrames - 1)
             return
 
@@ -159,16 +180,15 @@ class Fighter extends Sprite {
                     this.frameCurrent = 0;
                 }
                 break;
+            case 'death':
+                if (this.image !== this.sprites.death.image) {
+                    this.image = this.sprites.death.image;
+                    this.maxFrames = this.sprites.death.maxFrames;
+                    this.frameCurrent = 0;
+                }
+                break;
         }
     }
 
-    attack() {
-        this.switchSprite('attack1');
-        this.isAttacking = true;
-    }
 
-    takeHit() {
-        this.switchSprite('takeHit');
-        this.health -= 20;
-    }
 };

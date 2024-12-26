@@ -1,2 +1,30 @@
-<canvas></canvas>
-<script src="assets/js/main.js"></script>
+
+<head>
+</head>
+
+<body>
+    <div class="red-container">
+        <div class="smaller-red-container">
+            <!--Player Health-->
+            <div class="player-health-container">
+                <div  class="player-health"></div>
+                <div id="player-health" class="under-player-health"></div>
+            </div>
+            <!--Timer-->
+            <div id="timer" class="timer">10</div>
+            <!--Enemy Health-->
+            <div class="enemy-health-container">
+                <div  class="enemy-health"></div>
+                <div id="enemy-health" class="under-enemy-health"></div>
+            </div>
+        </div>
+        <div id="game-message" class="game-message"></div>
+        <canvas id="canvas"></canvas>
+    </div>
+    
+    <script src="/assets/js/classes.js"></script>
+    <script src="/assets/js/utilities.js"></script>
+    <script src="/assets/js/script.js"></script>
+</body>
+
+</html>

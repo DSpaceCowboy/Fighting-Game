@@ -85,7 +85,36 @@ const enemy = new Fighter({
         x: -50,
         y: 0
     },
-    color: 'blue'
+    color: 'blue',
+    imageSrc: '/assets/img/kenji/Idle.png',
+    maxFrames: 4,
+    scale: 2.5,
+    offset: {
+        x: 215,
+        y: 167
+    },
+    sprites: {
+        idle: {
+            imageSrc: '/assets/img/kenji/Idle.png',
+            maxFrames: 4
+        },
+        run: {
+            imageSrc: '/assets/img/kenji/Run.png',
+            maxFrames: 8
+        },
+        jump: {
+            imageSrc: '/assets/img/kenji/Jump.png',
+            maxFrames: 2
+        },
+        fall: {
+            imageSrc: '/assets/img/kenji/Fall.png',
+            maxFrames: 2
+        },
+        attack1: {
+            imageSrc: '/assets/img/kenji/Attack1.png',
+            maxFrames: 4
+        }
+    }
 });
 
 const keys = {
@@ -118,7 +147,7 @@ function animate() {
     background.update();
     shop.update();
     player.update();
-    // enemy.update();
+    enemy.update();
 
     player.velocity.x = 0;
     enemy.velocity.x = 0;
@@ -130,21 +159,30 @@ function animate() {
     } else if (keys.d.pressed && player.lastKey === 'd') {
         player.velocity.x = 10;
         player.switchSprite('run');
-    }else {
+    } else {
         player.switchSprite('idle');
     }
-    if(player.velocity.y < 0) {
+    if (player.velocity.y < 0) {
         player.switchSprite('jump');
-    }else if(player.velocity.y > 0) {
+    } else if (player.velocity.y > 0) {
         player.switchSprite('fall');
     }
 
     //Enemy movement
     if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
         enemy.velocity.x = -10
+        enemy.switchSprite('run');
     }
     else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
-        enemy.velocity.x = 10
+        enemy.velocity.x = 10;
+        enemy.switchSprite('run');
+    }else {
+        enemy.switchSprite('idle');
+    }
+    if (enemy.velocity.y < 0) {
+        enemy.switchSprite('jump');
+    } else if (enemy.velocity.y > 0) {
+        enemy.switchSprite('fall');
     }
 
     if (rectangularCollision({

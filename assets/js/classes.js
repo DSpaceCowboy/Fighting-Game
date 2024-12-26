@@ -9,7 +9,7 @@ class Sprite {
         this.maxFrames = maxFrames;
         this.frameCurrent = 0;
         this.framesElapsed = 0;
-        this.framesHold = 5;
+        this.framesHold = 6;
         this.offset = offset
     }
     draw() {

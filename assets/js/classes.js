@@ -9,7 +9,7 @@ class Sprite {
         this.maxFrames = maxFrames;
         this.frameCurrent = 0;
         this.framesElapsed = 0;
-        this.framesHold = 6 ;
+        this.framesHold = 6;
         this.offset = offset
     }
     draw() {
@@ -46,7 +46,7 @@ class Fighter extends Sprite {
         maxFrames = 1,
         offset = { x: 0, y: 0 },
         sprites,
-        attackBox = {offset: {}, width: {undefined}, height: {undefined}}
+        attackBox = { offset: {}, width: { undefined }, height: { undefined } }
     }) {
         super({
             position,
@@ -112,6 +112,10 @@ class Fighter extends Sprite {
     switchSprite(sprite) {
         if (this.image === this.sprites.attack1.image && this.frameCurrent < this.sprites.attack1.maxFrames - 1)
             return
+
+        if (this.image === this.sprites.takeHit.image && this.frameCurrent < this.sprites.takeHit.maxFrames - 1)
+            return
+
         switch (sprite) {
             case 'idle':
                 if (this.image !== this.sprites.idle.image) {
@@ -148,11 +152,23 @@ class Fighter extends Sprite {
                     this.frameCurrent = 0;
                 }
                 break;
+            case 'takeHit':
+                if (this.image !== this.sprites.takeHit.image) {
+                    this.image = this.sprites.takeHit.image;
+                    this.maxFrames = this.sprites.takeHit.maxFrames;
+                    this.frameCurrent = 0;
+                }
+                break;
         }
     }
 
     attack() {
         this.switchSprite('attack1');
         this.isAttacking = true;
+    }
+
+    takeHit() {
+        this.switchSprite('takeHit');
+        this.health -= 20;
     }
 };

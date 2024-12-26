@@ -34,7 +34,7 @@ const shop = new Sprite({
 
 const player = new Fighter({
     position: {
-        x: 0,
+        x: 300,
         y: 0
     },
     velocity: {
@@ -90,7 +90,7 @@ const player = new Fighter({
 
 const enemy = new Fighter({
     position: {
-        x: 400,
+        x: 600,
         y: 100
     },
     velocity: {
@@ -178,6 +178,8 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height);
     background.update();
     shop.update();
+    c.fillStyle = 'rgba(255, 255, 255, 0.15)'
+    c.fillRect(0, 0, canvas.width, canvas.height)
     player.update();
     enemy.update();
 
@@ -307,3 +309,4 @@ window.addEventListener('keyup', (event) => {
             break;
     }
 });
+

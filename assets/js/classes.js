@@ -95,7 +95,7 @@ class Fighter extends Sprite {
 
     update() {
         this.draw();
-        if(!this.dead) this.animateFrame();
+        if (!this.dead) this.animateFrame()
 
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
         this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
@@ -115,7 +115,8 @@ class Fighter extends Sprite {
     }
 
     takeHit() {
-        this.health -= 20;
+
+            this.health -= 20;
 
         if (this.health <= 0) {
             this.switchSprite('death');

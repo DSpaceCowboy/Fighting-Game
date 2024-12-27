@@ -188,10 +188,10 @@ function animate() {
 
     //player movement
     if (keys.a.pressed && player.lastKey === 'a') {
-        player.velocity.x = -10;
+        player.velocity.x = -6;
         player.switchSprite('run');
     } else if (keys.d.pressed && player.lastKey === 'd') {
-        player.velocity.x = 10;
+        player.velocity.x = 6;
         player.switchSprite('run');
     } else {
         player.switchSprite('idle');
@@ -204,11 +204,11 @@ function animate() {
 
     //Enemy movement
     if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
-        enemy.velocity.x = -10
+        enemy.velocity.x = -6
         enemy.switchSprite('run');
     }
     else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
-        enemy.velocity.x = 10;
+        enemy.velocity.x = 6;
         enemy.switchSprite('run');
     } else {
         enemy.switchSprite('idle');
@@ -226,7 +226,9 @@ function animate() {
     ) {
         player.isAttacking = false;
         enemy.takeHit();
-        document.querySelector('#enemy-health').style.width = enemy.health + '%';
+        gsap.to('#enemy-health', {
+            width: enemy.health + '%'
+        })
     }
 
     if (player.isAttacking && player.frameCurrent === 4) {
@@ -240,7 +242,9 @@ function animate() {
     ) {
         enemy.isAttacking = false;
         player.takeHit();
-        document.querySelector('#player-health').style.width = player.health + '%';
+        gsap.to('#player-health', {
+            width: player.health + '%'
+        })
     }
 
     if (enemy.isAttacking && enemy.frameCurrent === 2) {
